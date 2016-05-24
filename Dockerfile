@@ -12,10 +12,10 @@ RUN echo "deb http://vontaene.de/raspbian-updates/ . main" | sudo tee --append /
 RUN gpg --keyserver pgp.mit.edu --recv-keys 0C667A3E && gpg -a --export 0C667A3E | sudo apt-key add -
 
 RUN apt-get update && apt-get install -yq \
-    install pkg-config libgl1-mesa-dev libgles2-mesa-dev \
+    pkg-config libgl1-mesa-dev libgles2-mesa-dev \
     python-pygame python-setuptools libgstreamer1.0-dev git-core \
-    gstreamer1.0-plugins-{bad,base,good,ugly} \
-    gstreamer1.0-{omx,alsa} python-dev && \
+    gstreamer1.0-plugins-bad gstreamer1.0-plugins-base gstreamer1.0-plugins-good gstreamer1.0-plugins-ugly \
+    gstreamer1.0-omx gstreamer1.0-alsa python-dev && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # create src dir
