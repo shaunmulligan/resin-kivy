@@ -30,7 +30,7 @@ WORKDIR /usr/src/app
 
 # pip install python deps from requirements.txt on the resin.io build server
 #RUN pip install -r /requirements.txt
-RUN pip install cython pygments docutils
+RUN pip install cython==0.23 pygments docutils
 
 RUN git clone https://github.com/kivy/kivy && cd kivy && python setup.py build && python setup.py install
 
