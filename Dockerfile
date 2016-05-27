@@ -16,16 +16,16 @@ RUN apt-get update && apt-get install -yq \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # EGL work around for containers
-# WORKDIR /opt/vc
-# RUN wget https://github.com/resin-io-playground/userland/releases/download/v0.1/userland-rpi.tar.xz
-# RUN tar xf userland-rpi.tar.xz
+WORKDIR /opt/vc
+RUN wget https://github.com/resin-io-playground/userland/releases/download/v0.1/userland-rpi.tar.xz
+RUN tar xf userland-rpi.tar.xz
 
 # create src dir
 RUN mkdir -p /usr/src/app/
-
+ENV KIVY_HOME=/usr/src/app
 # set as WORKDIR
 WORKDIR /usr/src/app
-
+COPY config.ini config.ini
 # Copy requirements.txt first for better cache on later pushes
 #COPY ./requirements.txt /requirements.txt
 
