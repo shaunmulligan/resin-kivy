@@ -9,10 +9,10 @@ RUN gpg -a --export 0C667A3E | sudo apt-key add -
 
 RUN apt-get update && apt-get install -yq \
     libraspberrypi-dev libraspberrypi-bin libsdl2-dev libsdl2-image-dev libsdl2-mixer-dev libsdl2-ttf-dev \
-    pkg-config libgl1-mesa-dev libgles2-mesa-dev \
+    pkg-config libgl1-mesa-dev libgles2-mesa-dev mtdev-tools\
     python-pygame python-setuptools libgstreamer1.0-dev git-core \
     gstreamer1.0-plugins-base gstreamer1.0-plugins-good gstreamer1.0-plugins-bad gstreamer1.0-plugins-ugly \
-    gstreamer1.0-alsa gstreamer1.0-omx python-dev && \
+    gstreamer1.0-alsa gstreamer1.0-omx python-dev cython && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # EGL work around for containers
@@ -26,12 +26,11 @@ ENV KIVY_HOME=/usr/src/app
 # set as WORKDIR
 WORKDIR /usr/src/app
 COPY config.ini config.ini
-# Copy requirements.txt first for better cache on later pushes
-#COPY ./requirements.txt /requirements.txt
 
 # pip install python deps from requirements.txt on the resin.io build server
 #RUN pip install -r /requirements.txt
-RUN pip install cython==0.23 pygments docutils
+RUN pip install pygments docutils
+#cython==0.23
 
 RUN git clone https://github.com/kivy/kivy && cd kivy && python setup.py build && python setup.py install
 
@@ -39,4 +38,4 @@ RUN git clone https://github.com/kivy/kivy && cd kivy && python setup.py build &
 COPY . ./
 
 # runs the start script on container start
-CMD ["ls -la"]
+CMD ["python", "main.py"]
