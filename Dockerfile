@@ -13,10 +13,11 @@ RUN gpg --keyserver pgp.mit.edu --recv-keys 0C667A3E
 RUN gpg -a --export 0C667A3E | sudo apt-key add -
 
 RUN apt-get update && apt-get install -yq \
+    libsdl2-dev libsdl2-image-dev libsdl2-mixer-dev libsdl2-ttf-dev \
     pkg-config libgl1-mesa-dev libgles2-mesa-dev \
     python-pygame python-setuptools libgstreamer1.0-dev git-core \
-    gstreamer1.0-plugins-* \
-    gstreamer1.0-* python-dev && \
+    gstreamer1.0-plugins-base gstreamer1.0-plugins-good gstreamer1.0-plugins-bad gstreamer1.0-plugins-ugly \
+    gstreamer1.0-alsa gstreamer1.0-omx python-dev && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
 # create src dir
