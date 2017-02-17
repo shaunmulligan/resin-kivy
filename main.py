@@ -46,7 +46,6 @@ class Picture(Scatter):
 
     source = StringProperty(None)
 
-
 class PicturesApp(App):
 
     def build(self):
@@ -65,9 +64,12 @@ class PicturesApp(App):
             except Exception as e:
                 Logger.exception('Pictures: Unable to load <%s>' % filename)
 
+
     def on_pause(self):
         return True
 
+    def on_touch_down(self, touch):
+        print('The touch angle is', touch.pos)
 
 if __name__ == '__main__':
     PicturesApp().run()
